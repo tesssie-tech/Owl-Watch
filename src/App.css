@@ -22,6 +22,7 @@
 
 .timer-card {
   width: min(440px, 100%);
+  box-sizing: border-box;
   padding: 22px;
   border-radius: 26px;
   border: 2px solid var(--line);
@@ -33,8 +34,17 @@
 
 .embed .timer-card {
   width: min(360px, 100%);
+  max-width: 100%;
+  overflow: hidden;
   padding: 18px;
   border-radius: 20px;
+}
+
+.app-shell.embed {
+  min-height: 100%;
+  height: 100%;
+  padding: 8px;
+  overflow: hidden;
 }
 
 .badge {
