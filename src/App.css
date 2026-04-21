@@ -1,10 +1,12 @@
 :root {
-  --sky: #e5f7f5;
-  --mint: #b6ede5;
-  --sun: #ffd8a8;
-  --ink: #27444a;
-  --card: #fffaf3;
-  --line: #d3e7de;
+  --rose: #e27296;
+  --blush: #ec99b3;
+  --petal: #f0cfe4;
+  --dew: #ecf2d8;
+  --aqua: #b3dee4;
+  --ink: #5a3e4d;
+  --card: #fffdfd;
+  --line: #e8c8d9;
 }
 
 .app-shell {
@@ -13,9 +15,9 @@
   place-items: center;
   padding: 24px;
   background:
-    radial-gradient(circle at 15% 18%, rgba(255, 216, 168, 0.7), transparent 28%),
-    radial-gradient(circle at 86% 4%, rgba(182, 237, 229, 0.9), transparent 26%),
-    linear-gradient(180deg, #f7fffd 0%, var(--sky) 100%);
+    radial-gradient(circle at 15% 18%, rgba(236, 153, 179, 0.45), transparent 30%),
+    radial-gradient(circle at 86% 4%, rgba(179, 222, 228, 0.65), transparent 28%),
+    linear-gradient(180deg, var(--dew) 0%, #fdf9ff 100%);
 }
 
 .timer-card {
@@ -23,8 +25,8 @@
   padding: 22px;
   border-radius: 26px;
   border: 2px solid var(--line);
-  background: linear-gradient(180deg, #fffefb 0%, var(--card) 100%);
-  box-shadow: 0 18px 40px rgba(39, 68, 74, 0.12);
+  background: linear-gradient(180deg, #ffffff 0%, var(--card) 100%);
+  box-shadow: 0 18px 40px rgba(90, 62, 77, 0.14);
   color: var(--ink);
   animation: rise-in 400ms ease-out;
 }
@@ -38,6 +40,7 @@
 .badge {
   margin: 0;
   display: inline-block;
+  font-family: 'Pixelify Sans', monospace;
   font-size: 0.74rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -49,12 +52,14 @@
 
 h1 {
   margin: 12px 0 8px;
+  font-family: 'Pixelify Sans', monospace;
   font-size: clamp(1.35rem, 4vw, 1.9rem);
   line-height: 1.1;
 }
 
 .clock {
   margin: 8px 0 16px;
+  font-family: 'Pixelify Sans', monospace;
   font-size: clamp(2.6rem, 14vw, 4rem);
   font-weight: 700;
   font-variant-numeric: tabular-nums;
@@ -62,7 +67,7 @@ h1 {
 }
 
 .clock.finished {
-  color: #e46e4a;
+  color: var(--rose);
 }
 
 .row {
@@ -76,20 +81,23 @@ h1 {
 }
 
 button {
+  font-family: 'Pixelify Sans', monospace;
   border: none;
   border-radius: 14px;
   padding: 12px 14px;
-  background: linear-gradient(180deg, #7ad7c8 0%, #64c3b4 100%);
-  color: #09373b;
-  font-size: 1rem;
-  font-weight: 700;
+  background: linear-gradient(180deg, var(--aqua) 0%, var(--blush) 100%);
+  color: #4d2f3d;
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   cursor: pointer;
   transition: transform 120ms ease, box-shadow 120ms ease;
 }
 
 button:hover {
   transform: translateY(-1px);
-  box-shadow: 0 10px 16px rgba(18, 104, 96, 0.22);
+  box-shadow: 0 10px 16px rgba(226, 114, 150, 0.28);
 }
 
 button:active {
@@ -105,14 +113,17 @@ button:active {
 .inputs {
   margin-top: 14px;
   padding-top: 14px;
-  border-top: 1px dashed #b7d5cc;
+  border-top: 1px dashed var(--line);
 }
 
 label {
   display: block;
+  font-family: 'Pixelify Sans', monospace;
   margin: 9px 0 5px;
-  font-size: 0.9rem;
-  font-weight: 700;
+  font-size: 0.66rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 input {
@@ -120,14 +131,15 @@ input {
   border: 1px solid var(--line);
   border-radius: 12px;
   padding: 10px 12px;
-  font: inherit;
+  font-family: 'Space Mono', 'Courier New', monospace;
+  font-size: 1.05rem;
   box-sizing: border-box;
   color: var(--ink);
   background: #fff;
 }
 
 input:focus {
-  outline: 2px solid #87e0d3;
+  outline: 2px solid var(--aqua);
   outline-offset: 1px;
 }
 
@@ -145,12 +157,12 @@ input:focus {
 .done-note {
   margin: 12px 0 0;
   font-size: 0.88rem;
-  color: #41656b;
+  color: #765365;
 }
 
 .done-note {
   font-weight: 700;
-  color: #c65433;
+  color: var(--rose);
 }
 
 @keyframes rise-in {
