@@ -1,38 +1,185 @@
-.App {
-  text-align: center;
+:root {
+  --sky: #e5f7f5;
+  --mint: #b6ede5;
+  --sun: #ffd8a8;
+  --ink: #27444a;
+  --card: #fffaf3;
+  --line: #d3e7de;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.app-shell {
   min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 15% 18%, rgba(255, 216, 168, 0.7), transparent 28%),
+    radial-gradient(circle at 86% 4%, rgba(182, 237, 229, 0.9), transparent 26%),
+    linear-gradient(180deg, #f7fffd 0%, var(--sky) 100%);
+}
+
+.timer-card {
+  width: min(440px, 100%);
+  padding: 22px;
+  border-radius: 26px;
+  border: 2px solid var(--line);
+  background: linear-gradient(180deg, #fffefb 0%, var(--card) 100%);
+  box-shadow: 0 18px 40px rgba(39, 68, 74, 0.12);
+  color: var(--ink);
+  animation: rise-in 400ms ease-out;
+}
+
+.embed .timer-card {
+  width: min(360px, 100%);
+  padding: 18px;
+  border-radius: 20px;
+}
+
+.badge {
+  margin: 0;
+  display: inline-block;
+  font-size: 0.74rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 10px;
+}
+
+h1 {
+  margin: 12px 0 8px;
+  font-size: clamp(1.35rem, 4vw, 1.9rem);
+  line-height: 1.1;
+}
+
+.clock {
+  margin: 8px 0 16px;
+  font-size: clamp(2.6rem, 14vw, 4rem);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.03em;
+}
+
+.clock.finished {
+  color: #e46e4a;
+}
+
+.row {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 10px;
 }
 
-.App-link {
-  color: #61dafb;
+.actions button {
+  flex: 1;
 }
 
-@keyframes App-logo-spin {
+button {
+  border: none;
+  border-radius: 14px;
+  padding: 12px 14px;
+  background: linear-gradient(180deg, #7ad7c8 0%, #64c3b4 100%);
+  color: #09373b;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 16px rgba(18, 104, 96, 0.22);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+.soft-button {
+  background: #fff;
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+
+.inputs {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px dashed #b7d5cc;
+}
+
+label {
+  display: block;
+  margin: 9px 0 5px;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+input {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font: inherit;
+  box-sizing: border-box;
+  color: var(--ink);
+  background: #fff;
+}
+
+input:focus {
+  outline: 2px solid #87e0d3;
+  outline-offset: 1px;
+}
+
+.grid-two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.setup-actions {
+  margin-top: 12px;
+}
+
+.hint,
+.done-note {
+  margin: 12px 0 0;
+  font-size: 0.88rem;
+  color: #41656b;
+}
+
+.done-note {
+  font-weight: 700;
+  color: #c65433;
+}
+
+@keyframes rise-in {
   from {
-    transform: rotate(0deg);
+    opacity: 0;
+    transform: translateY(10px) scale(0.99);
   }
   to {
-    transform: rotate(360deg);
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 480px) {
+  .app-shell {
+    padding: 14px;
+  }
+
+  .timer-card {
+    padding: 16px;
+    border-radius: 18px;
+  }
+
+  .row {
+    flex-direction: column;
+  }
+
+  .actions button,
+  .setup-actions button {
+    width: 100%;
   }
 }
