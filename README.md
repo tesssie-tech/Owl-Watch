@@ -1,70 +1,65 @@
-# Getting Started with Create React App
+# Owl Watch
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A cute little focus timer built with React, designed to work nicely inside Notion embeds.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Countdown timer with `Start`, `Pause`, and `Reset`
+- Custom session label (for example: `Deep Work` or `Reading`)
+- Adjustable minutes and seconds
+- One-click `Copy Notion link` button
+- Clean embed mode for Notion (`embed=1`)
+- Small completion sound when the timer reaches `00:00`
+- Responsive layout for desktop and mobile
 
-### `npm start`
+## Run Locally
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. Install dependencies:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```bash
+npm install
+```
 
-### `npm test`
+2. Start development server:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+npm start
+```
 
-### `npm run build`
+3. Open:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```text
+http://localhost:3000
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Use With Notion
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Run the app locally or deploy it.
+2. Set the timer label/time in the app.
+3. Click `Copy Notion link`.
+4. Paste the copied link into a Notion `Embed` block.
 
-### `npm run eject`
+## URL Parameters
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+You can preconfigure the timer through query parameters:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- `embed`: `1` to enable compact embed mode
+- `m`: minutes
+- `s`: seconds
+- `label`: timer title
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Example:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```text
+https://your-domain.com/?embed=1&m=25&s=0&label=Deep%20Work
+```
 
-## Learn More
+## Scripts
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- `npm start` - Run app in development mode
+- `npm test` - Run tests
+- `npm run build` - Create production build
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Deployment Notes
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Any static hosting provider works (Netlify, Vercel, GitHub Pages, etc.) as long as the app URL is accessible by Notion embeds.
