@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import './App.css';
 
 const DEFAULT_SECONDS = 25 * 60;
+const PUBLIC_URL_KEY = 'owl-watch-public-url';
 
 function parsePositiveInt(value, fallback) {
   const parsed = Number.parseInt(value, 10);
@@ -15,12 +16,32 @@ function toClock(totalSeconds) {
   return `${minutes}:${seconds}`;
 }
 
+function normalizePublicUrl(rawUrl) {
+  if (!rawUrl) {
+    return '';
+  }
+
+  try {
+    const parsed = new URL(rawUrl.trim());
+    return `${parsed.origin}${parsed.pathname}`.replace(/\/$/, '');
+  } catch {
+    return '';
+  }
+}
+
+function isLocalHost(hostname) {
+  return hostname === 'localhost' || hostname === '127.0.0.1';
+}
+
 function App() {
   const params = useMemo(() => new URLSearchParams(window.location.search), []);
   const initialMinutes = parsePositiveInt(params.get('m'), 25);
   const initialSeconds = parsePositiveInt(params.get('s'), 0);
   const initialLabel = params.get('label') || 'Cozy Focus';
   const isEmbedMode = params.get('embed') === '1';
+  const localStoredPublicUrl = localStorage.getItem(PUBLIC_URL_KEY) || '';
+  const currentBaseUrl = `${window.location.origin}${window.location.pathname}`.replace(/\/$/, '');
+  const currentHostIsLocal = isLocalHost(window.location.hostname);
 
   const [label, setLabel] = useState(initialLabel);
   const [minutesInput, setMinutesInput] = useState(initialMinutes);
@@ -31,6 +52,10 @@ function App() {
   const [isRunning, setIsRunning] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [copyError, setCopyError] = useState('');
+  const [publicUrlInput, setPublicUrlInput] = useState(
+    currentHostIsLocal ? localStoredPublicUrl : currentBaseUrl
+  );
 
   const dingRef = useRef(null);
 
@@ -70,6 +95,13 @@ function App() {
     return () => clearTimeout(timer);
   }, [copied]);
 
+  useEffect(() => {
+    const normalized = normalizePublicUrl(publicUrlInput);
+    if (normalized) {
+      localStorage.setItem(PUBLIC_URL_KEY, normalized);
+    }
+  }, [publicUrlInput]);
+
   const handleApplyTime = () => {
     const nextTotal = minutesInput * 60 + secondsInput;
     setRemainingSeconds(nextTotal > 0 ? nextTotal : DEFAULT_SECONDS);
@@ -84,7 +116,20 @@ function App() {
   };
 
   const handleCopyNotionLink = async () => {
-    const baseUrl = `${window.location.origin}${window.location.pathname}`;
+    const normalizedPublicUrl = normalizePublicUrl(publicUrlInput);
+
+    if (!normalizedPublicUrl) {
+      setCopied(false);
+      setCopyError('Add a public https URL first so Notion can load it.');
+      return;
+    }
+
+    if (!normalizedPublicUrl.startsWith('https://')) {
+      setCopied(false);
+      setCopyError('Use an https URL. Notion often blocks non-https embeds.');
+      return;
+    }
+
     const query = new URLSearchParams({
       embed: '1',
       m: String(minutesInput),
@@ -93,10 +138,12 @@ function App() {
     });
 
     try {
-      await navigator.clipboard.writeText(`${baseUrl}?${query.toString()}`);
+      await navigator.clipboard.writeText(`${normalizedPublicUrl}?${query.toString()}`);
       setCopied(true);
+      setCopyError('');
     } catch {
       setCopied(false);
+      setCopyError('Clipboard access failed. Copy from the URL field manually.');
     }
   };
 
@@ -128,6 +175,15 @@ function App() {
                 value={label}
                 maxLength={24}
                 onChange={(event) => setLabel(event.target.value || 'Cozy Focus')}
+              />
+
+              <label htmlFor="public-url">Public app URL</label>
+              <input
+                id="public-url"
+                type="url"
+                placeholder="https://your-domain.com"
+                value={publicUrlInput}
+                onChange={(event) => setPublicUrlInput(event.target.value)}
               />
 
               <div className="grid-two">
@@ -167,8 +223,11 @@ function App() {
                   {copied ? 'Copied' : 'Copy Notion link'}
                 </button>
               </div>
+              {copyError && <p className="error-note">{copyError}</p>}
             </div>
-            <p className="hint">Paste the copied link into a Notion embed block.</p>
+            <p className="hint">
+              Paste the copied link into a Notion embed block. Localhost links will not work in Notion.
+            </p>
           </>
         )}
 

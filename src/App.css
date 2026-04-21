@@ -160,6 +160,12 @@ input:focus {
   color: #765365;
 }
 
+.error-note {
+  margin: 10px 0 0;
+  font-size: 0.82rem;
+  color: var(--rose);
+}
+
 .done-note {
   font-weight: 700;
   color: var(--rose);
